@@ -136,6 +136,20 @@ Inference rules:
 -   All _generator_ functions become `flow`. (Note that generator functions are not detectable in some transpiler configurations, if flow doesn't work as expected, make sure to specify `flow` explicitly.)
 -   Members marked with `false` in the `overrides` argument will not be annotated. For example, using it for read only fields such as identifiers.
 
+## Options {🚀}
+
+The above APIs take an optional `options` argument which is an object that supports the following options:
+
+-   **`autoBind: true`** uses `action.bound`/`flow.bound` by default, rather than `action`/`flow`. Does not affect explicitely annotated members.
+-   **`deep: false`** uses `observable.ref` by default, rather than `observable`. Does not affect explicitely annotated members.
+-   **`name: <string>`** gives the object a debug name that is printed in error messages and reflection APIs.
+
+<details id="one-options-per-target"><summary>**Note:** options are *sticky* and can be provided only once<a href="#one-options-per-target" class="tip-anchor"></a></summary>
+`options` argument can be provided only for `target` that is NOT observable yet.<br>
+It is NOT possible to change options once the observable object was initialized.<br>
+Options are stored on target and respected by subsequent `makeObservable`/`extendObservable` calls.<br>
+You can't pass different options in [subclass](subclassing.md).
+</details>
 ## `observable`
 
 Usage:
@@ -255,7 +269,7 @@ Note that it is possible to pass `{ proxy: false }` as an option to `observable`
 
 ## Options {🚀}
 
-The above APIs take an optional `options` argument which is an object that supports the following options:
+The `observable` take an optional `options` argument which is an object that supports the following options:
 
 -   **`autoBind: true`** uses `action.bound`/`flow.bound` by default, rather than `action`/`flow`. Does not affect explicitely annotated members.
 -   **`deep: false`** uses `observable.ref` by default, rather than `observable`. Does not affect explicitely annotated members.
